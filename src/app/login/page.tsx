@@ -75,6 +75,8 @@ function LoginPageClient() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [shouldAskUsername, setShouldAskUsername] = useState(false);
+  const [autoLoginAttempted, setAutoLoginAttempted] = useState(false);
+  const [configLoaded, setConfigLoaded] = useState(false);
 
   const { siteName } = useSite();
 
@@ -82,9 +84,83 @@ function LoginPageClient() {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const storageType = (window as any).RUNTIME_CONFIG?.STORAGE_TYPE;
-      setShouldAskUsername(storageType && storageType !== 'localstorage');
+      const shouldAsk = storageType && storageType !== 'localstorage';
+      setShouldAskUsername(shouldAsk);
+      setConfigLoaded(true);
     }
   }, []);
+
+  // 自动登录功能
+  useEffect(() => {
+    const performAutoLogin = async () => {
+      // 等待配置加载完成
+      if (!configLoaded || autoLoginAttempted || loading) return;
+
+      // 优先使用环境变量，其次使用 localStorage
+      const autoUsername =
+        process.env.NEXT_PUBLIC_AUTO_LOGIN_USERNAME ||
+        (typeof window !== 'undefined' ? localStorage.getItem('auto_login_username') || '' : '');
+      const autoPassword =
+        process.env.NEXT_PUBLIC_AUTO_LOGIN_PASSWORD ||
+        (typeof window !== 'undefined' ? localStorage.getItem('auto_login_password') || '' : '');
+
+      // 如果没有配置自动登录密码，则不执行自动登录
+      if (!autoPassword) {
+        setAutoLoginAttempted(true);
+        return;
+      }
+
+      // 如果需要用户名但没有配置，则不执行自动登录
+      if (shouldAskUsername && !autoUsername) {
+        setAutoLoginAttempted(true);
+        return;
+      }
+
+      // 自动填写表单
+      if (shouldAskUsername && autoUsername) {
+        setUsername(autoUsername);
+      }
+      setPassword(autoPassword);
+
+      // 执行自动登录
+      setAutoLoginAttempted(true);
+      setLoading(true);
+
+      try {
+        const res = await fetch('/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            password: autoPassword,
+            ...(shouldAskUsername && autoUsername ? { username: autoUsername } : {}),
+          }),
+        });
+
+        if (res.ok) {
+          const redirect = searchParams.get('redirect') || '/';
+          router.replace(redirect);
+        } else if (res.status === 401) {
+          setError('密码错误');
+          // 清除无效的自动登录凭据
+          if (!process.env.NEXT_PUBLIC_AUTO_LOGIN_PASSWORD) {
+            localStorage.removeItem('auto_login_password');
+          }
+          if (!process.env.NEXT_PUBLIC_AUTO_LOGIN_USERNAME && shouldAskUsername) {
+            localStorage.removeItem('auto_login_username');
+          }
+        } else {
+          const data = await res.json().catch(() => ({}));
+          setError(data.error ?? '服务器错误');
+        }
+      } catch (error) {
+        setError('网络错误，请稍后重试');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    performAutoLogin();
+  }, [autoLoginAttempted, loading, router, searchParams, shouldAskUsername, configLoaded]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

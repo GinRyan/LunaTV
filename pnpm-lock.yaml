@@ -62,6 +62,9 @@ dependencies:
   media-icons:
     specifier: ^1.1.5
     version: 1.1.5
+  moontv:
+    specifier: 'link:'
+    version: 'link:'
   next:
     specifier: ^14.2.23
     version: 14.2.35(@babel/core@7.29.0)(react-dom@18.3.1)(react@18.3.1)
@@ -145,6 +148,9 @@ devDependencies:
   autoprefixer:
     specifier: ^10.4.20
     version: 10.4.27(postcss@8.5.6)
+  es-abstract:
+    specifier: 1.24.1
+    version: 1.24.1
   eslint:
     specifier: ^8.57.1
     version: 8.57.1

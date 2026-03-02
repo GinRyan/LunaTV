@@ -25,7 +25,7 @@ import { SearchResult } from '@/lib/types';
 import { getVideoResolutionFromM3u8, processImageUrl } from '@/lib/utils';
 
 import EpisodeSelector from '@/components/EpisodeSelector';
-import PageLayout from '@/components/PageLayout';
+import NewPageLayout from '@/components/NewPageLayout';
 
 // 扩展 HTMLVideoElement 类型以支持 hls 属性
 declare global {
@@ -1672,7 +1672,7 @@ function PlayPageClient() {
 
   if (loading) {
     return (
-      <PageLayout activePath='/play'>
+      <NewPageLayout activePath='/play'>
         <div className='flex items-center justify-center min-h-screen bg-transparent'>
           <div className='text-center max-w-md mx-auto px-6'>
             {/* 动画影院图标 */}
@@ -1755,13 +1755,13 @@ function PlayPageClient() {
             </div>
           </div>
         </div>
-      </PageLayout>
+      </NewPageLayout>
     );
   }
 
   if (error) {
     return (
-      <PageLayout activePath='/play'>
+      <NewPageLayout activePath='/play'>
         <div className='flex items-center justify-center min-h-screen bg-transparent'>
           <div className='text-center max-w-md mx-auto px-6'>
             {/* 错误图标 */}
@@ -1823,12 +1823,12 @@ function PlayPageClient() {
             </div>
           </div>
         </div>
-      </PageLayout>
+      </NewPageLayout>
     );
   }
 
   return (
-    <PageLayout activePath='/play'>
+    <NewPageLayout activePath='/play'>
       <div className='flex flex-col gap-3 py-4 px-5 lg:px-[3rem] 2xl:px-20'>
         {/* 第一行：影片标题 */}
         <div className='py-1'>
@@ -2060,7 +2060,7 @@ function PlayPageClient() {
           </div>
         </div>
       </div>
-    </PageLayout>
+    </NewPageLayout>
   );
 }
 

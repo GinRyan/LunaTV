@@ -17,7 +17,7 @@ import { DoubanItem, DoubanResult } from '@/lib/types';
 import DoubanCardSkeleton from '@/components/DoubanCardSkeleton';
 import DoubanCustomSelector from '@/components/DoubanCustomSelector';
 import DoubanSelector from '@/components/DoubanSelector';
-import PageLayout from '@/components/PageLayout';
+import NewPageLayout from '@/components/NewPageLayout';
 import VideoCard from '@/components/VideoCard';
 import VirtualGrid from '@/components/VirtualGrid';
 
@@ -712,7 +712,7 @@ function DoubanPageClient() {
   };
 
   return (
-    <PageLayout activePath={getActivePath()}>
+    <NewPageLayout activePath={getActivePath()}>
       <div className='px-4 sm:px-10 py-4 sm:py-8 overflow-visible'>
         {/* 页面标题和选择器 */}
         <div className='mb-6 sm:mb-8 space-y-4 sm:space-y-6'>
@@ -817,7 +817,7 @@ function DoubanPageClient() {
           )}
         </div>
       </div>
-    </PageLayout>
+    </NewPageLayout>
   );
 }
 
