@@ -2,7 +2,8 @@
 
 'use client';
 
-import { Cat, Clover, Film, Home, Menu, Radio, Star, Tv } from 'lucide-react';
+import { Cat, Clover, Film, Home, Radio, Star, Tv } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
@@ -25,15 +26,24 @@ const SidebarContext = createContext<SidebarContextType>({
 export const useSidebar = () => useContext(SidebarContext);
 
 // Logo 组件
+// 可替换为你自己的 logo 图片
 const Logo = () => {
   return (
     <Link
-      href='/new-home'
-      className='flex items-center justify-center h-16 select-none hover:opacity-80 transition-opacity duration-200'
+      href='/'
+      className='flex items-center justify-center h-12 w-48 select-none hover:opacity-80 transition-opacity duration-200'
     >
-      <span className='text-2xl font-bold text-green-600 tracking-tight'>
-        MoonTV
-      </span>
+      {/* <span className='text-4xl font-bold text-green-600 tracking-tight'>
+        {siteName}
+      </span> */}
+      <Image
+        src='logo_brand.png'
+        alt='logo'
+        width={18}
+        height={16}
+        layout='responsive'
+        className='ml-2'
+      />
     </Link>
   );
 };
@@ -178,12 +188,12 @@ const NewSidebar = ({ onToggle, activePath = '/new-home' }: NewSidebarProps) => 
           <div className='flex h-full flex-col items-center py-4'>
             {/* 顶部 Logo 区域 */}
             <div className='relative h-16 w-full flex items-center justify-center mb-4'>
-              <button
+              {/* <button
                 onClick={handleToggle}
                 className='absolute right-2 top-1/2 -translate-y-1/2 flex items-center justify-center w-8 h-8 rounded-lg text-gray-500 hover:text-gray-700 hover:bg-gray-100/50 transition-colors duration-200 z-10 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:bg-gray-700/50'
               >
                 <Menu className='h-4 w-4' />
-              </button>
+              </button> */}
               <Logo />
             </div>
 
@@ -208,8 +218,8 @@ const NewSidebar = ({ onToggle, activePath = '/new-home' }: NewSidebarProps) => 
                       data-active={isActive}
                       className='group flex flex-col items-center justify-center w-56 h-32 rounded-2xl transition-all duration-200 bg-gray-100/50 hover:bg-green-100/50 data-[active=true]:bg-green-500/20 dark:bg-gray-800/50 dark:hover:bg-green-900/30 dark:data-[active=true]:bg-green-500/10 border-2 border-transparent hover:border-green-300 data-[active=true]:border-green-500 dark:hover:border-green-700 dark:data-[active=true]:border-green-500'
                     >
-                      <Icon className='h-20 w-20 text-gray-600 group-hover:text-green-600 data-[active=true]:text-green-600 dark:text-gray-400 dark:group-hover:text-green-400 dark:data-[active=true]:text-green-400' />
-                      <span className='text-2xl mt-2 font-medium text-gray-700 group-hover:text-green-700 data-[active=true]:text-green-700 dark:text-gray-300 dark:group-hover:text-green-300 dark:data-[active=true]:text-green-300'>
+                      <Icon className='h-14 w-14 text-gray-600 group-hover:text-green-600 data-[active=true]:text-green-600 dark:text-gray-400 dark:group-hover:text-green-400 dark:data-[active=true]:text-green-400' />
+                      <span className='text-4xl mt-2 font-medium text-gray-700 group-hover:text-green-700 data-[active=true]:text-green-700 dark:text-gray-300 dark:group-hover:text-green-300 dark:data-[active=true]:text-green-300'>
                         {item.label}
                       </span>
                     </Link>

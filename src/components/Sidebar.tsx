@@ -3,6 +3,7 @@
 'use client';
 
 import { Cat, Clover, Film, Home, Menu, Radio, Search, Star, Tv } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import {
@@ -34,9 +35,17 @@ const Logo = () => {
       href='/'
       className='flex items-center justify-center h-16 select-none hover:opacity-80 transition-opacity duration-200'
     >
-      <span className='text-2xl font-bold text-green-600 tracking-tight'>
+      {/* <span className='text-4xl font-bold text-green-600 tracking-tight'>
         {siteName}
-      </span>
+      </span> */}
+      <Image
+        src='logo_brand.png'
+        alt='logo'
+        width={32}
+        height={32}
+        layout='responsive'
+        className='ml-2'
+      />
     </Link>
   );
 };
