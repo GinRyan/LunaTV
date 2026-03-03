@@ -7,6 +7,7 @@ import Hls from 'hls.js';
 import { Heart } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useRef, useState } from 'react';
+import Swal from 'sweetalert2'
 
 import {
   deleteFavorite,
@@ -993,26 +994,45 @@ function PlayPageClient() {
     )
       return;
 
-    // Alt + 左箭头 = 上一集
-    if (e.altKey && e.key === 'ArrowLeft') {
+    // Ctrl + 左箭头 = 上一集
+    if (e.ctrlKey && e.key === 'ArrowLeft') {
       if (detailRef.current && currentEpisodeIndexRef.current > 0) {
         handlePreviousEpisode();
         e.preventDefault();
+      } else {
+        console.log('没有上一集了');
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "没有上一集了",
+          showConfirmButton: false,
+          timer: 1500
+        });
       }
+      e.preventDefault();
     }
 
-    // Alt + 右箭头 = 下一集
-    if (e.altKey && e.key === 'ArrowRight') {
+    // Ctrl + 右箭头 = 下一集
+    if (e.ctrlKey && e.key === 'ArrowRight') {
       const d = detailRef.current;
       const idx = currentEpisodeIndexRef.current;
       if (d && idx < d.episodes.length - 1) {
         handleNextEpisode();
         e.preventDefault();
+      } else {
+        console.log('没有下一集了');
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "没有下一集了",
+          showConfirmButton: false,
+          timer: 1500
+        });
       }
     }
 
     // 左箭头 = 快退
-    if (!e.altKey && e.key === 'ArrowLeft') {
+    if (!e.ctrlKey && e.key === 'ArrowLeft') {
       if (artPlayerRef.current && artPlayerRef.current.currentTime > 5) {
         artPlayerRef.current.currentTime -= 10;
         e.preventDefault();
@@ -1020,7 +1040,7 @@ function PlayPageClient() {
     }
 
     // 右箭头 = 快进
-    if (!e.altKey && e.key === 'ArrowRight') {
+    if (!e.ctrlKey && e.key === 'ArrowRight') {
       if (
         artPlayerRef.current &&
         artPlayerRef.current.currentTime < artPlayerRef.current.duration - 5
