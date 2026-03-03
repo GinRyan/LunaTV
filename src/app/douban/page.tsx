@@ -150,17 +150,17 @@ function DoubanPageClient() {
     } else {
       // 原有逻辑
       if (type === 'movie') {
-        setPrimarySelection('热门');
+        setPrimarySelection('全部');
         setSecondarySelection('全部');
       } else if (type === 'tv') {
-        setPrimarySelection('最近热门');
+        setPrimarySelection('全部');
         setSecondarySelection('tv');
       } else if (type === 'show') {
-        setPrimarySelection('最近热门');
+        setPrimarySelection('全部');
         setSecondarySelection('show');
       } else if (type === 'anime') {
-        setPrimarySelection('每日放送');
-        setSecondarySelection('全部');
+        setPrimarySelection('番剧');
+        setSecondarySelection('');
       } else {
         setPrimarySelection('');
         setSecondarySelection('全部');
