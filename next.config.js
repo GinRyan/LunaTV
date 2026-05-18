@@ -15,7 +15,7 @@ const nextConfig = {
   //experimental: {
   //  instrumentationHook: process.env.NODE_ENV === 'production',
   //},
-  allowedDevOrigins: ['v.haipufa.cn'],
+  allowedDevOrigins: ['v.haipufa.cn', '127.0.0.1'],
 
   // Uncoment to add domain whitelist
   images: {
