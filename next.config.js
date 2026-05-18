@@ -1,18 +1,21 @@
 /** @type {import('next').NextConfig} */
 /* eslint-disable @typescript-eslint/no-var-requires */
 
+
+
 const nextConfig = {
   output: 'standalone',
-  eslint: {
-    dirs: ['src'],
-  },
-
+  //eslint: {
+  //  dirs: ['src'],
+  //},
+  devIndicators: false,
   reactStrictMode: false,
-  swcMinify: false,
+  //swcMinify: false,
 
-  experimental: {
-    instrumentationHook: process.env.NODE_ENV === 'production',
-  },
+  //experimental: {
+  //  instrumentationHook: process.env.NODE_ENV === 'production',
+  //},
+  allowedDevOrigins: ['v.haipufa.cn'],
 
   // Uncoment to add domain whitelist
   images: {
