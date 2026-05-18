@@ -654,7 +654,7 @@ function SearchPageClient() {
                 onFocus={handleInputFocus}
                 placeholder='搜索电影、电视剧...'
                 autoComplete="off"
-                className='w-full h-12 rounded-lg bg-gray-50/80 py-3 pl-10 pr-12 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-400 focus:bg-white border border-gray-200/50 shadow-sm dark:bg-gray-800 dark:text-gray-300 dark:placeholder-gray-500 dark:focus:bg-gray-700 dark:border-gray-700'
+                className='w-full h-12 rounded-lg bg-gray-50/80 py-3 pl-10 pr-24 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-400 focus:bg-white border border-gray-200/50 shadow-sm dark:bg-gray-800 dark:text-gray-300 dark:placeholder-gray-500 dark:focus:bg-gray-700 dark:border-gray-700'
               />
 
               {/* 清除按钮 */}
@@ -666,12 +666,22 @@ function SearchPageClient() {
                     setShowSuggestions(false);
                     document.getElementById('searchInput')?.focus();
                   }}
-                  className='absolute right-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors dark:text-gray-500 dark:hover:text-gray-300'
+                  className='absolute right-12 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors dark:text-gray-500 dark:hover:text-gray-300'
                   aria-label='清除搜索内容'
                 >
                   <X className='h-5 w-5' />
                 </button>
               )}
+
+              {/* 搜索按钮 */}
+              <button
+                type='button'
+                onClick={handleSearch}
+                className='absolute right-3 top-1/2 -translate-y-1/2 px-3 py-1.5 text-sm font-medium text-white bg-green-600 hover:bg-green-700 rounded-md transition-colors'
+                aria-label='搜索'
+              >
+                搜索
+              </button>
 
               {/* 搜索建议 */}
               <SearchSuggestions
